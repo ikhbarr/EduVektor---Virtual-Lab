@@ -1,0 +1,69 @@
+import Math from '../components/Math';
+
+# Vektor dalam Matematika: Fondasi Geometri dan Aljabar
+
+Dalam matematika, **vektor** adalah objek fundamental yang memiliki dua properti utama: **besar (*magnitude*)** dan **arah (*direction*)**. Vektor menjadi jembatan antara aljabar dan geometri, memungkinkan kita untuk mendeskripsikan posisi, perpindahan, dan hubungan spasial menggunakan angka.
+
+---
+
+### 1. Representasi Vektor 📍
+
+Vektor dapat direpresentasikan dalam dua cara utama:
+
+* **Geometris:** Sebagai **anak panah** dalam ruang. Panjang panah menunjukkan besarnya, dan arah panah menunjukkan arahnya.
+* **Analitis:** Sebagai **kumpulan angka terurut** yang disebut komponen. Dalam ruang 2D, sebuah vektor ditulis sebagai <Math>{"\\vec{v} = \\langle x, y \\rangle"}</Math>, dan dalam ruang 3D sebagai <Math>{"\\vec{v} = \\langle x, y, z \\rangle"}</Math>.
+
+Sebagai contoh, vektor <Math>{"\\vec{a} = \\langle 3, 4 \\rangle"}</Math> berarti bergerak 3 satuan ke kanan (sumbu-x) dan 4 satuan ke atas (sumbu-y).
+
+---
+
+### 2. Operasi Dasar Vektor ➕➖✖️
+
+Keindahan vektor terletak pada bagaimana kita bisa memanipulasinya secara matematis.
+
+#### Penjumlahan dan Pengurangan
+
+Menjumlahkan dua vektor berarti mengikuti satu vektor lalu dilanjutkan dengan vektor lainnya. Secara geometris, ini dikenal sebagai **aturan segitiga** atau **jajar genjang**. Secara analitis, kita cukup menjumlahkan komponennya.
+
+* Jika <Math>{"\\vec{a} = \\langle a_1, a_2 \\rangle"}</Math> dan <Math>{"\\vec{b} = \\langle b_1, b_2 \\rangle"}</Math>, maka:
+    <Math block>{"\\vec{a} + \\vec{b} = \\langle a_1 + b_1, a_2 + b_2 \\rangle"}</Math>
+
+#### Perkalian Skalar
+
+Mengalikan vektor dengan sebuah angka (skalar) akan mengubah besarnya (memperpanjang atau memperpendek). Jika skalarnya negatif, arahnya akan berbalik 180 derajat.
+
+* Jika <Math>k</Math> adalah skalar dan <Math>{"\\vec{a} = \\langle a_1, a_2 \\rangle"}</Math>, maka:
+    <Math block>{"k\\vec{a} = \\langle ka_1, ka_2 \\rangle"}</Math>
+
+---
+
+### 3. Perkalian Antar Vektor
+
+Ada dua jenis perkalian utama antara dua vektor, masing-masing dengan tujuan yang berbeda.
+
+#### Dot Product (Perkalian Titik)
+
+*Dot product* menghasilkan sebuah **angka skalar**, bukan vektor. Fungsinya adalah untuk menemukan sudut antara dua vektor atau panjang proyeksi satu vektor ke vektor lain.
+
+* **Rumus Geometris:**
+    <Math block>{"\\vec{a} \\cdot \\vec{b} = |\\vec{a}| |\\vec{b}| \\cos(\\theta)"}</Math>
+* **Rumus Analitis:**
+    <Math block>{"\\vec{a} \\cdot \\vec{b} = a_1b_1 + a_2b_2"}</Math>
+
+> **Fakta Penting:** Jika *dot product* dari dua vektor (yang tidak nol) adalah 0, maka kedua vektor tersebut **tegak lurus**.
+
+#### Cross Product (Perkalian Silang)
+
+*Cross product* (hanya ada di ruang 3D) menghasilkan sebuah **vektor baru** yang tegak lurus terhadap kedua vektor aslinya. Arahnya ditentukan oleh **aturan tangan kanan**.
+
+* **Rumus Besar Vektor:**
+    <Math block>{"|\\vec{a} \\times \\vec{b}| = |\\vec{a}| |\\vec{b}| \\sin(\\theta)"}</Math>
+* **Aplikasi:** Sangat penting dalam fisika untuk menghitung torsi, momentum sudut, dan gaya magnet.
+
+
+
+---
+
+### Kesimpulan
+
+Vektor adalah alat esensial dalam matematika. Mereka menyediakan bahasa untuk menggambarkan ruang, melakukan transformasi geometris (seperti rotasi dan skala), dan menjadi dasar dari cabang matematika yang lebih tinggi seperti **aljabar linear**. Tanpa vektor, deskripsi matematis dari dunia di sekitar kita akan jauh lebih rumit.

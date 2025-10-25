@@ -1,0 +1,73 @@
+/* src/components/Tabs.css */
+.tabs {
+  width: 100%;
+}
+
+.nav-tabs {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.nav-tabs li {
+  margin-right: 5px;
+}
+
+.nav-tabs li a {
+  display: block;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: var(--font-color);
+  background-color: var(--secondary-color);
+  border: 1px solid var(--border-color);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  transition: all 0.2s;
+}
+
+.nav-tabs li.active a {
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--card-bg);
+  color: var(--primary-color);
+  font-weight: 600;
+  position: relative;
+  top: 1px;
+}
+
+.nav-tabs li a:hover {
+  background-color: var(--card-bg);
+}
+
+.tab-content {
+  padding: 25px;
+  border: 1px solid var(--border-color);
+  border-top: none;
+  background-color: var(--card-bg);
+  border-radius: 0 0 4px 4px;
+}
+
+@media (max-width: 600px) {
+  .nav-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; 
+    white-space: nowrap; 
+    flex-wrap: nowrap; 
+  }
+
+  .nav-tabs li {
+    display: inline-block; 
+    float: none; 
+    margin-right: 0; 
+  }
+
+  .nav-tabs li a {
+    min-width: 120px; 
+    border-radius: 4px 4px 0 0;
+  }
+
+  .nav-tabs li.active a {
+    border-bottom: 1px solid var(--card-bg);
+  }
+}

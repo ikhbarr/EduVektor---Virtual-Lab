@@ -1,0 +1,44 @@
+.landingPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    background-color: var(--secondary-color);
+}
+
+.landingContent {
+    max-width: 600px;
+    padding: 40px;
+    background-color: var(--card-bg);
+    border-radius: 2px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+}
+
+.landingContent h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color-dark);
+}
+
+.landingContent p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.loginButton {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background-image: linear-gradient(to right, #3b82f6, #60a5fa);
+    border: none;
+    color: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.loginButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
