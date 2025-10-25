@@ -253,8 +253,8 @@ const VectorProjectionCanvas = () => {
 
   return (
     <div className="vector-projection-container">
-      <canvas ref={canvasRef} style={{ border: '1px solid black', width: '100%', height: 'auto' }} />
-      <div className="info-panel">
+      <canvas ref={canvasRef} id="proyeksi-canvas" style={{ border: '1px solid black', width: '100%', height: 'auto' }} />
+      <div id="proyeksi-info-panel" className="info-panel">
         <h3>Informasi Vektor</h3>
         <p>Komponen: V = ({vector.x}, {vector.y})</p>
         <p>Magnitudo: ||V|| = {magnitude}</p>

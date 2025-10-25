@@ -6,6 +6,9 @@ import ResultPanel from '../components/ResultPanel';
 import { add, subtract, scale, interpolate } from '../utils/vectorMath';
 import './PaletRGBPage.css';
 
+import WelcomeTour from '../components/WelcomeTour';
+import { paletRGBPageSteps } from '../tours/paletRGBPageSteps';
+
 function PaletRGBPage() {
   // State untuk dua vektor input
   const [vectorA, setVectorA] = useState({ r: 255, g: 0, b: 0 });
@@ -37,25 +40,34 @@ function PaletRGBPage() {
 
   return (
     <div className="page-container rgb-palette-container">
+      <WelcomeTour tourKey="palet_rgb_page_tour" steps={paletRGBPageSteps} />
       <div className="rgb-palette-header">
         <h1>Palet Vektor RGB</h1>
         <p>Eksplorasi operasi vektor dasar (penjumlahan, pengurangan, perkalian skalar, dan interpolasi) dalam ruang warna RGB.</p>
       </div>
       <div className="main-content-rgb">
-        <ColorInputPanel label="Vektor A" color={vectorA} onColorChange={setVectorA} />
-        <OperatorPanel 
-            scalar={scalar}
-            interpolation={interpolation}
-            onAdd={handleAdd}
-            onSubtract={handleSubtract}
-            onScale={handleScale}
-            onInterpolate={handleInterpolate}
-            onScalarChange={setScalar}
-            onInterpolationChange={setInterpolation}
-        />
-        <ColorInputPanel label="Vektor B" color={vectorB} onColorChange={setVectorB} />
+        <div id="rgb-vektor-a">
+          <ColorInputPanel label="Vektor A" color={vectorA} onColorChange={setVectorA} />
+        </div>
+        <div id="rgb-operator-panel">
+          <OperatorPanel 
+              scalar={scalar}
+              interpolation={interpolation}
+              onAdd={handleAdd}
+              onSubtract={handleSubtract}
+              onScale={handleScale}
+              onInterpolate={handleInterpolate}
+              onScalarChange={setScalar}
+              onInterpolationChange={setInterpolation}
+          />
+        </div>
+        <div id="rgb-vektor-b">
+          <ColorInputPanel label="Vektor B" color={vectorB} onColorChange={setVectorB} />
+        </div>
       </div>
-      <ResultPanel color={resultVector} />
+      <div id="rgb-hasil">
+        <ResultPanel color={resultVector} />
+      </div>
     </div>
   );
 }

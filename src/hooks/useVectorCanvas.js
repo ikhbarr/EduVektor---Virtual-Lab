@@ -32,7 +32,7 @@ const useVectorCanvas = (canvasRef, { vecA, vecB, resultant, selectedVector }) =
         const endY = origin.y - y;
         
         // Scale vector drawing for smaller canvas on mobile
-        const scale = Math.min(canvas.width / 600, 1); // Base scale on 600px canvas
+        const scale = Math.min(canvas.width / 600, 1); 
         const lineWidth = Math.max(2, 3 * scale);
         const fontSize = Math.max(12, Math.floor(16 * scale));
         const arrowSize = Math.max(8, Math.floor(10 * scale));
@@ -73,7 +73,6 @@ const useVectorCanvas = (canvasRef, { vecA, vecB, resultant, selectedVector }) =
         }
     }, [clearCanvas, drawVector, vecA, vecB, resultant, selectedVector]);
 
-    // Effect for canvas resizing
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -85,31 +84,35 @@ const useVectorCanvas = (canvasRef, { vecA, vecB, resultant, selectedVector }) =
             const displayWidth = Math.min(container.clientWidth, window.innerWidth * 0.95);
             const displayHeight = Math.min(window.innerHeight * 0.6, 400);
             
-            canvas.width = displayWidth;
-            canvas.height = displayHeight;
+            if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
+                canvas.width = displayWidth;
+                canvas.height = displayHeight;
+                redrawCanvas();
+            }
+        };
+
+        const observer = new ResizeObserver(() => {
             
-            redrawCanvas();
-        };
-        
-        resizeCanvas();
-        
-        const resizeHandler = () => {
             setTimeout(resizeCanvas, 0);
-        };
-        
-        window.addEventListener('resize', resizeHandler);
-        
+        });
+
+        if (canvas.parentElement) {
+            observer.observe(canvas.parentElement);
+        }
+
+        resizeCanvas(); // Initial resize
+
         return () => {
-            window.removeEventListener('resize', resizeHandler);
+            observer.disconnect();
         };
     }, [canvasRef, redrawCanvas]);
 
-    // Effect for redrawing when vector data changes
+    
     useEffect(() => {
         redrawCanvas();
     }, [vecA, vecB, resultant, selectedVector, redrawCanvas]);
 
-    return { clearCanvas, redrawCanvas }; // Expose clearCanvas for external use if needed
+    return { clearCanvas, redrawCanvas };
 };
 
 export default useVectorCanvas;

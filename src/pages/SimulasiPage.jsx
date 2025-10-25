@@ -15,6 +15,9 @@ import HistoryPanel from '../components/simulation/HistoryPanel';
 
 import styles from './SimulasiPage.module.css';
 
+import WelcomeTour from '../components/WelcomeTour';
+import { simulasiPageSteps } from '../tours/simulasiPageSteps';
+
 const SimulasiPage = () => {
     const [resultantVector, setResultantVector] = useState(null); // New state for resultant vector
     const [info, setInfo] = useState({ a: '-', b: '-', r: '-' });
@@ -41,7 +44,8 @@ const SimulasiPage = () => {
 
     return (
         <div className={styles.simulationPageGrid}>
-            <main className={styles.canvasContainerSimulasi}>
+            <WelcomeTour tourKey="simulasi_page_tour" steps={simulasiPageSteps} />
+            <main id="simulasi-canvas-container" className={styles.canvasContainerSimulasi}>
                 <canvas 
                     ref={canvasRef} 
                     onMouseDown={handleMouseDown}
@@ -50,7 +54,7 @@ const SimulasiPage = () => {
                     onTouchEnd={handleTouchEnd}
                 ></canvas>
             </main>
-            <aside className={styles.controlsContainerSimulasi}>
+            <aside id="simulasi-kontrol-panel" className={styles.controlsContainerSimulasi}>
                 <h2>Panel Kontrol</h2>
 
                 <VectorControlPanel
@@ -66,9 +70,15 @@ const SimulasiPage = () => {
                     onReset={() => { clearCanvasHook(); setInfo({a:'-',b:'-',r:'-'}); setResultantVector(null); }}
                 />
 
-                <ResultsDisplay info={info} />
+                <div id="simulasi-hasil">
+                    <ResultsDisplay info={info} />
+                </div>
 
-                {currentUser && <HistoryPanel history={history} onClear={clearHistory} />}
+                {currentUser && (
+                    <div id="simulasi-riwayat">
+                        <HistoryPanel history={history} onClear={clearHistory} />
+                    </div>
+                )}
             </aside>
         </div>
     );

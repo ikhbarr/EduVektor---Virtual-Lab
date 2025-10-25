@@ -16,7 +16,7 @@
     min-width: 0;
 }
 
-#vectorCanvas {
+.canvasContainerSimulasi canvas {
     border: 1px solid var(--border-color);
     width: 100%;
     height: auto;

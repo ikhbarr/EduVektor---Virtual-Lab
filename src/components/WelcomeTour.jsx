@@ -9,7 +9,7 @@ const WelcomeTour = ({ tourKey, steps }) => {
     // Periksa apakah tur untuk halaman ini sudah pernah dilihat
     const hasSeenTour = localStorage.getItem(tourKey);
     if (!hasSeenTour) {
-      // Jika belum, jalankan tur setelah sedikit penundaan agar semua elemen halaman sempat dimuat
+      
       setTimeout(() => {
         setRun(true);
       }, 500);
@@ -38,7 +38,7 @@ const WelcomeTour = ({ tourKey, steps }) => {
       styles={{
         options: {
           zIndex: 10000,
-          primaryColor: '#007bff', // Sesuaikan dengan warna tema Anda
+          primaryColor: '#007bff', 
         },
       }}
       locale={{
