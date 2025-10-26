@@ -1,29 +1,47 @@
-// src/components/WelcomeTour.jsx
+
 import React, { useState, useEffect } from 'react';
 import Joyride, { STATUS } from 'react-joyride';
+import { useAuth } from '../context/AuthContext';
+import { getUserDocument, updateUserCompletedTours } from '../services/firestoreService';
 
 const WelcomeTour = ({ tourKey, steps }) => {
   const [run, setRun] = useState(false);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
-    // Periksa apakah tur untuk halaman ini sudah pernah dilihat
-    const hasSeenTour = localStorage.getItem(tourKey);
-    if (!hasSeenTour) {
+    const checkTourStatus = async () => {
       
-      setTimeout(() => {
-        setRun(true);
-      }, 500);
-    }
-  }, [tourKey]);
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      if (currentUser) {
+        const userData = await getUserDocument(currentUser.uid);
+        const hasSeen = userData?.completedTours?.includes(tourKey);
+        if (!hasSeen) {
+          setRun(true);
+        }
+      } else {
+        const hasSeenTour = localStorage.getItem(tourKey);
+        if (!hasSeenTour) {
+          setRun(true);
+        }
+      }
+    };
+
+    checkTourStatus();
+
+  }, [tourKey, currentUser]);
 
   const handleJoyrideCallback = (data) => {
     const { status } = data;
     const finishedStatuses = [STATUS.FINISHED, STATUS.SKIPPED];
 
     if (finishedStatuses.includes(status)) {
-      // Saat tur selesai atau dilewati, hentikan tur dan simpan statusnya
       setRun(false);
-      localStorage.setItem(tourKey, 'true');
+      if (currentUser) {
+        updateUserCompletedTours(currentUser.uid, tourKey);
+      } else {
+        localStorage.setItem(tourKey, 'true');
+      }
     }
   };
 
@@ -53,3 +71,4 @@ const WelcomeTour = ({ tourKey, steps }) => {
 };
 
 export default WelcomeTour;
+

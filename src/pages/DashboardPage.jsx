@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { db } from '../firebase';
+import { getQuizAttemptsByUserId } from '../services/firestoreService';
 
 import StatistikUtama from '../components/StatistikUtama';
 import GrafikProgres from '../components/GrafikProgres';
@@ -17,12 +17,7 @@ const DashboardPage = () => {
 
         const fetchAttempts = async () => {
             try {
-                const snapshot = await db.collection('quiz_attempts')
-                    .where('userId', '==', currentUser.uid)
-                    .orderBy('timestamp', 'desc')
-                    .get();
-                
-                const fetchedAttempts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                const fetchedAttempts = await getQuizAttemptsByUserId(currentUser.uid);
                 setAttempts(fetchedAttempts);
             } catch (error) {
                 console.error("Error fetching quiz attempts: ", error);

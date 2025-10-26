@@ -1,15 +1,15 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth, googleProvider } from '../firebase';
 import { 
-    createUserWithEmailAndPassword, 
-    signInWithEmailAndPassword, 
-    signInWithPopup 
-} from 'firebase/auth';
+    loginWithEmail, 
+    registerWithEmail, 
+    signInWithGoogle 
+} from '../services/authService';
 import styles from './AuthPage.module.css';
 
-import googleIcon from '../assets/google.svg'; 
+// Import Google icon
+import googleIcon from '../assets/google.svg';
 
 const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
@@ -21,18 +21,17 @@ const AuthPage = () => {
 
     const handleAuthAction = async (e) => {
         e.preventDefault();
-        setError(''); 
+        setError('');
         setRegistrationSuccessMessage(''); 
-
         try {
             if (isLogin) {
-                await signInWithEmailAndPassword(auth, email, password);
+                await loginWithEmail(email, password);
                 navigate('/home'); 
-            } else { 
-                await createUserWithEmailAndPassword(auth, email, password);
+            } else {
+                await registerWithEmail(email, password);
                 setRegistrationSuccessMessage('Registrasi berhasil! Silakan login dengan akun Anda.');
-                setIsLogin(true); 
-                setEmail(''); 
+                setIsLogin(true);
+                setEmail('');
                 setPassword('');
             }
         } catch (err) {
@@ -43,7 +42,7 @@ const AuthPage = () => {
     const handleGoogleSignIn = async () => {
         setError('');
         try {
-            await signInWithPopup(auth, googleProvider);
+            await signInWithGoogle();
             navigate('/home');
         } catch (err) {
             setError(getFriendlyErrorMessage(err.code));
