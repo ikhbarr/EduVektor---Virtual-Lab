@@ -11,7 +11,9 @@ const ProyektorPage = () => {
       <WelcomeTour tourKey="proyektor_page_tour" steps={proyektorPageSteps} />
       <h1>Proyektor Vektor</h1>
       <p>Tarik dan lepas pada kanvas untuk membuat vektor dan meluncurkan proyektil.</p>
-      <VectorProjectionCanvas />
+      <div className = "vector-projection-container">
+        <VectorProjectionCanvas />
+      </div>
     </div>
   );
 };

@@ -125,7 +125,7 @@ const KuisPage = () => {
             ) : <p>Memuat soal...</p>}
            
             {!isSubmitted && (
-                <button id="submit-quiz" className={styles.submitQuiz} onClick={handleSubmit} disabled={Object.keys(answers).length !== questions.length}>
+                <button className={styles.submitQuiz} onClick={handleSubmit} disabled={Object.keys(answers).length !== questions.length}>
                     Kumpulkan Jawaban
                 </button>
             )}

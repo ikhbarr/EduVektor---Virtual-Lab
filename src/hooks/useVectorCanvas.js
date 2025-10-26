@@ -73,39 +73,70 @@ const useVectorCanvas = (canvasRef, { vecA, vecB, resultant, selectedVector }) =
         }
     }, [clearCanvas, drawVector, vecA, vecB, resultant, selectedVector]);
 
+
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
 
         const resizeCanvas = () => {
-            const container = canvas.parentElement;
-            if (!container) return;
-            
-            const displayWidth = Math.min(container.clientWidth, window.innerWidth * 0.95);
-            const displayHeight = Math.min(window.innerHeight * 0.6, 400);
-            
-            if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
-                canvas.width = displayWidth;
-                canvas.height = displayHeight;
-                redrawCanvas();
-            }
-        };
+        const container = canvas.parentElement;
+        if (!container) return;
 
-        const observer = new ResizeObserver(() => {
-            
-            setTimeout(resizeCanvas, 0);
-        });
+        let displayHeight, displayWidth;
 
-        if (canvas.parentElement) {
-            observer.observe(canvas.parentElement);
+        if (window.innerWidth < 900) {
+            // --- Logika Mobile ---
+            displayWidth = Math.min(container.clientWidth, window.innerWidth * 0.95);
+            displayHeight = Math.min(window.innerHeight * 0.6, 400);
+        }
+        else {
+            // --- Logika Desktop ---
+            displayWidth = container.clientWidth;
+            displayHeight = container.clientHeight; 
         }
 
-        resizeCanvas(); // Initial resize
+
+        if (!displayWidth || !displayHeight) {
+            return;
+        }
+
+        if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
+            canvas.width = displayWidth;
+            canvas.height = displayHeight; 
+        }
+
+        redrawCanvas();
+        };
+
+        const initialResizeId = setTimeout(resizeCanvas, 0);
+
+        const resizeHandler = () => {
+            setTimeout(resizeCanvas, 0);
+        }
+
+        window.addEventListener('resize', resizeHandler);
 
         return () => {
-            observer.disconnect();
+            clearTimeout(initialResizeId);
+            window.removeEventListener('resize', resizeHandler);
         };
-    }, [canvasRef, redrawCanvas]);
+        }, [canvasRef, redrawCanvas]);
+
+    //     const observer = new ResizeObserver(() => {
+            
+    //         setTimeout(resizeCanvas, 0);
+    //     });
+
+    //     if (canvas.parentElement) {
+    //         observer.observe(canvas.parentElement);
+    //     }
+
+    //     resizeCanvas(); // Initial resize
+
+    //     return () => {
+    //         observer.disconnect();
+    //     };
+    // }, [canvasRef, redrawCanvas]);
 
     
     useEffect(() => {

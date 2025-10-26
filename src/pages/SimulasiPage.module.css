@@ -1,7 +1,11 @@
 .simulationPageGrid {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 @media (min-width: 900px) {
@@ -9,31 +13,102 @@
         display: grid;
         grid-template-columns: 2fr 1fr;
         gap: 30px;
+        padding: 20px;
+        align-items: start;
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
     }
 }
 
 .canvasContainerSimulasi {
-    min-width: 0;
+    width: 100%;
+    height: 400px;
+    min-height: 400px;
+    max-width: 100%; 
+    box-sizing: border-box;
+}
+
+@media (min-width: 900px) {
+    .canvasContainerSimulasi {
+        width: 100%;
+        height: 600px;
+        min-height: 500px;
+        max-height: 700px;
+        grid-column: 1; 
+        grid-row: 1; 
+    }
 }
 
 .canvasContainerSimulasi canvas {
     border: 1px solid var(--border-color);
     width: 100%;
-    height: auto;
+    height: 100%;
+    max-width: 100%;
     border-radius: 2px;
     background-color: #f8fafc;
+    display: block;
+    box-sizing: border-box;
+}
+
+.controlsContainerSimulasi {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media (min-width: 900px) {
+    .controlsContainerSimulasi {
+        grid-column: 2; 
+        grid-row: 1; 
+        align-self: start;
+    }
 }
 
 .controlsContainerSimulasi h2,
 .controlsContainerSimulasi h3 {
     margin-bottom: 15px;
+    margin-top: 0;
+}
+
+.controlsContainerSimulasi fieldset {
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    padding: 15px;
+    margin: 0;
+}
+
+.controlsContainerSimulasi legend {
+    font-weight: 600;
+    color: var(--primary-color);
+    padding: 0 5px;
+}
+
+.radioControl {
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.radioControl input {
+    margin-right: 8px;
+    cursor: pointer;
 }
 
 .vectorInputs {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: 1fr; /* Stack on mobile */
+    gap: 15px;
     margin-bottom: 20px;
+}
+
+@media (min-width: 600px) {
+    .vectorInputs {
+        grid-template-columns: 1fr 1fr; /* Two columns on larger screens */
+        gap: 20px;
+    }
 }
 
 .vectorInputs fieldset {
@@ -57,10 +132,11 @@
 
 .inputGroup label {
     font-weight: 500;
+    min-width: 20px;
 }
 
 .inputGroup input {
-    width: 100%;
+    flex: 1;
     padding: 8px;
     border: 1px solid var(--border-color);
     border-radius: 2px;
@@ -75,7 +151,8 @@
 }
 
 .actionsSimulasi button {
-    flex-grow: 1;
+    flex: 1;
+    min-width: 120px;
     padding: 12px;
     background-color: transparent;
     border: 1px solid var(--primary-color);
@@ -110,9 +187,18 @@
     margin-bottom: 20px;
 }
 
+.resultsSimulasi h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
 .resultsSimulasi p {
     margin: 5px 0;
     font-family: 'Courier New', Courier, monospace;
+}
+
+.historySimulasi {
+    margin-bottom: 20px;
 }
 
 .historySimulasi ul {
@@ -142,6 +228,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 10px;
+}
+
+.historyHeader h3 {
+    margin: 0;
 }
 
 .clearHistoryBtn {
@@ -150,4 +241,9 @@
     color: var(--primary-color);
     cursor: pointer;
     font-weight: 600;
+    padding: 5px 10px;
+}
+
+.clearHistoryBtn:hover {
+    text-decoration: underline;
 }

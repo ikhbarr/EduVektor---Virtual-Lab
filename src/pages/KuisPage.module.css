@@ -34,7 +34,7 @@
     margin-right: 10px;
 }
 
-#submitQuiz {
+.submitQuiz {
     width: 100%;
     padding: 14px;
     font-size: 16px;
@@ -48,11 +48,11 @@
     transition: background-color 0.2s;
 }
 
-#submitQuiz:hover {
+.submitQuiz:hover {
     background-color: #059669;
 }
 
-#submitQuiz:disabled {
+.submitQuiz:disabled {
     background-color: #d1d5db;
     cursor: not-allowed;
 }

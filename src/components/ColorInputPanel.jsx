@@ -8,7 +8,6 @@ function ColorInputPanel({ label, color, onColorChange }) {
   
   const handleNumericChange = (e) => {
     const { name, value } = e.target;
-    // Pastikan nilai tidak kosong sebelum di-parse
     const parsedValue = value === '' ? 0 : parseInt(value, 10);
     onColorChange({ ...color, [name]: Math.max(0, Math.min(255, parsedValue)) });
   };

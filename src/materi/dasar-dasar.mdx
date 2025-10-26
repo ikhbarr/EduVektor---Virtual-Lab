@@ -1,16 +1,95 @@
+import Math from '../components/Math';
+
 # Dasar-Dasar Vektor
 
 ## Apa itu Vektor?
 
-Vektor adalah objek geometri yang memiliki **magnitudo (nilai/panjang)** dan **arah**. Vektor sering digambarkan sebagai panah. Panjang panah menunjukkan magnitudo, dan arah panah menunjukkan arahnya.
+Vektor adalah objek geometri yang memiliki **magnitudo (nilai/panjang)** dan **arah**. Vektor berbeda dari skalar, yang hanya memiliki magnitudo (seperti suhu atau massa).
 
-## Penjumlahan Vektor
+Vektor sering digambarkan sebagai panah.
+* **Panjang panah** mewakili magnitudo.
+* **Arah panah** menunjukkan arahnya.
 
-Penjumlahan dua vektor (misalnya **A** + **B**) menghasilkan vektor baru yang disebut **vektor resultan (R)**. Secara matematis, jika **A** = (Ax, Ay) dan **B** = (Bx, By), maka resultannya **R** = (Ax + Bx, Ay + By).
+### Notasi dan Komponen
+
+Dalam notasi, vektor sering ditulis sebagai huruf tebal (misalnya, <Math>{"\\mathbf{A}"}</Math>) atau dengan panah di atasnya (<Math>{"\\vec{A}"}</Math>).
+
+Vektor dapat dipecah menjadi komponen-komponennya berdasarkan sumbu koordinat.
+* Di ruang 2D, vektor <Math>{"\\mathbf{A}"}</Math> dapat ditulis sebagai <Math>{"\\mathbf{A} = (A_x, A_y)"}</Math>.
+* Di ruang 3D, vektor <Math>{"\\mathbf{A}"}</Math> dapat ditulis sebagai <Math>{"\\mathbf{A} = (A_x, A_y, A_z)"}</Math>.
+
+---
 
 ## Magnitudo Vektor
 
-Magnitudo atau panjang dari sebuah vektor **A** = (Ax, Ay) dihitung menggunakan teorema Pythagoras: |A| = √(Ax² + Ay²)
+Magnitudo (panjang) dari sebuah vektor dilambangkan sebagai <Math>{"|\\mathbf{A}|"}</Math> atau <Math>{"\\|\\mathbf{A}\\|"}</Math>. Nilai ini dihitung menggunakan Teorema Pythagoras.
+
+Untuk vektor 2D <Math>{"\\mathbf{A} = (A_x, A_y)"}</Math>:
+<Math block>
+  {"|\\mathbf{A}| = \\sqrt{A_x^2 + A_y^2}"}
+</Math>
+
+Untuk vektor 3D <Math>{"\\mathbf{B} = (B_x, B_y, B_z)"}</Math>:
+<Math block>
+  {"|\\mathbf{B}| = \\sqrt{B_x^2 + B_y^2 + B_z^2}"}
+</Math>
+
+---
+
+## Operasi Dasar Vektor
+
+Anda dapat melakukan operasi aritmetika pada vektor, seperti penjumlahan, pengurangan, dan perkalian skalar.
+
+### Penjumlahan Vektor
+
+Penjumlahan dua vektor (misalnya <Math>{"\\mathbf{A} + \\mathbf{B}"}</Math>) menghasilkan vektor baru yang disebut **vektor resultan (<Math>{"\\mathbf{R}"}</Math>)**. Ini dilakukan dengan menjumlahkan komponen-komponen yang sesuai.
+
+Jika <Math>{"\\mathbf{A} = (A_x, A_y)"}</Math> dan <Math>{"\\mathbf{B} = (B_x, B_y)"}</Math>, maka:
+<Math block>
+  {"\\mathbf{R} = \\mathbf{A} + \\mathbf{B} = (A_x + B_x, A_y + B_y)"}
+</Math>
+
+### Pengurangan Vektor
+
+Pengurangan vektor bekerja dengan cara yang sama, yaitu mengurangkan komponen yang sesuai. Ini setara dengan menambahkan vektor negatif.
+
+Jika <Math>{"\\mathbf{A} = (A_x, A_y)"}</Math> dan <Math>{"\\mathbf{B} = (B_x, B_y)"}</Math>, maka:
+<Math block>
+  {"\\mathbf{R} = \\mathbf{A} - \\mathbf{B} = (A_x - B_x, A_y - B_y)"}
+</Math>
+
+### Perkalian Skalar
+
+Vektor dapat dikalikan dengan **skalar** (angka biasa). Operasi ini akan "menskalakan" magnitudo vektor.
+* Jika skalar <Math>{"c > 1"}</Math>, vektor menjadi lebih panjang.
+* Jika <Math>{"0 < c < 1"}</Math>, vektor menjadi lebih pendek.
+* Jika <Math>{"c < 0"}</Math>, arah vektor akan terbalik (berlawanan 180°).
+
+Jika <Math>{"c"}</Math> adalah skalar dan <Math>{"\\mathbf{A} = (A_x, A_y)"}</Math>, maka:
+<Math block>
+  {"c\\mathbf{A} = (cA_x, cA_y)"}
+</Math>
+
+---
+
+## Vektor Khusus
+
+### Vektor Satuan (Unit Vector)
+
+**Vektor satuan** (sering dilambangkan dengan topi, misal <Math>{"\\hat{u}"}</Math>) adalah vektor apa pun yang memiliki **magnitudo 1**. Vektor ini sangat berguna untuk mendefinisikan arah.
+
+Anda dapat menemukan vektor satuan <Math>{"\\hat{a}"}</Math> yang searah dengan vektor <Math>{"\\mathbf{A}"}</Math> dengan membagi <Math>{"\\mathbf{A}"}</Math> dengan magnitudonya sendiri:
+<Math block>
+  {"\\hat{a} = \\frac{\\mathbf{A}}{|\\mathbf{A}|}"}
+</Math>
+
+### Vektor Nol (Zero Vector)
+
+Vektor nol, dilambangkan sebagai <Math>{"\\mathbf{0}"}</Math>, adalah vektor dengan magnitudo 0. Vektor ini tidak memiliki arah yang spesifik.
+<Math block>
+  {"\\mathbf{0} = (0, 0)"}
+</Math>
+
+---
 
 <p>Cobalah konsep-konsep ini di halaman <strong>Simulasi</strong>!</p>
-
