@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase';
-import firebase from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import styles from './KuisPage.module.css';
 
 const questionBank = [
@@ -58,13 +58,13 @@ const KuisPage = () => {
 
         if (currentUser) {
             try {
-                await db.collection('quiz_attempts').add({
+                await addDoc(collection(db, 'quiz_attempts'), {
                     userId: currentUser.uid,
                     quizId: 'vektor_dasar_1',
                     score: finalScore,
                     correctAnswers: correctAnswers,
                     totalQuestions: questions.length,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                    timestamp: serverTimestamp()
                 });
             } catch (error) {
                 console.error("Error saving quiz attempt: ", error);

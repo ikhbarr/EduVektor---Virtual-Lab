@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { db } from '../firebase';
-import firebase from '../firebase';
+import { collection, doc, onSnapshot, orderBy, limit, addDoc, getDocs, writeBatch, serverTimestamp, query } from 'firebase/firestore';
 
 const useVectorHistory = (currentUser) => {
     const [history, setHistory] = useState([]);
@@ -11,12 +11,13 @@ const useVectorHistory = (currentUser) => {
             return;
         }
 
-        const unsubscribe = db.collection('calculations').doc(currentUser.uid).collection('history')
-            .orderBy('timestamp', 'desc').limit(5)
-            .onSnapshot(snapshot => {
-                const fetchedHistory = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setHistory(fetchedHistory);
-            });
+        const historyRef = collection(doc(db, 'calculations', currentUser.uid), 'history');
+        const q = query(historyRef, orderBy('timestamp', 'desc'), limit(5));
+        
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            const fetchedHistory = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setHistory(fetchedHistory);
+        });
 
         return () => unsubscribe();
     }, [currentUser]);
@@ -24,9 +25,10 @@ const useVectorHistory = (currentUser) => {
     const addHistoryEntry = useCallback(async (entry) => {
         if (!currentUser) return;
         try {
-            await db.collection('calculations').doc(currentUser.uid).collection('history').add({
+            const historyRef = collection(doc(db, 'calculations', currentUser.uid), 'history');
+            await addDoc(historyRef, {
                 ...entry,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                timestamp: serverTimestamp()
             });
         } catch (error) {
             console.error("Gagal menyimpan riwayat:", error);
@@ -36,12 +38,12 @@ const useVectorHistory = (currentUser) => {
     const clearHistory = useCallback(async () => {
         if (!currentUser) return;
 
-        const historyRef = db.collection('calculations').doc(currentUser.uid).collection('history');
+        const historyRef = collection(doc(db, 'calculations', currentUser.uid), 'history');
         try {
-            const snapshot = await historyRef.get();
+            const snapshot = await getDocs(historyRef);
             if (snapshot.empty) return;
 
-            const batch = db.batch();
+            const batch = writeBatch(db);
             snapshot.docs.forEach(doc => {
                 batch.delete(doc.ref);
             });

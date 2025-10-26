@@ -1,6 +1,6 @@
 
 import { db } from '../firebase';
-import firebase from 'firebase/compat/app';
+import { doc, getDoc, setDoc, arrayUnion, collection, where, orderBy, query, getDocs } from 'firebase/firestore';
 
 /**
  * Mengambil dokumen pengguna dari koleksi 'users'.
@@ -10,10 +10,10 @@ import firebase from 'firebase/compat/app';
 export const getUserDocument = async (userId) => {
   if (!userId) return null;
   try {
-    const userDocRef = db.collection('users').doc(userId);
-    const doc = await userDocRef.get();
-    if (doc.exists) {
-      return doc.data();
+    const userDocRef = doc(db, 'users', userId);
+    const docSnap = await getDoc(userDocRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
     } else {
       return null;
     }
@@ -31,10 +31,10 @@ export const getUserDocument = async (userId) => {
 export const updateUserCompletedTours = async (userId, tourKey) => {
   if (!userId || !tourKey) return;
 
-  const userDocRef = db.collection('users').doc(userId);
+  const userDocRef = doc(db, 'users', userId);
   try {
-    await userDocRef.set({
-      completedTours: firebase.firestore.FieldValue.arrayUnion(tourKey)
+    await setDoc(userDocRef, {
+      completedTours: arrayUnion(tourKey)
     }, { merge: true });
   } catch (error) {
     console.error("Error updating completed tours:", error);
@@ -49,12 +49,16 @@ export const updateUserCompletedTours = async (userId, tourKey) => {
 export const getQuizAttemptsByUserId = async (userId) => {
     if (!userId) return [];
     try {
-        const snapshot = await db.collection('quiz_attempts')
-            .where('userId', '==', userId)
-            .orderBy('timestamp', 'desc')
-            .get();
+        const quizAttemptsRef = collection(db, 'quiz_attempts');
+        const q = query(
+            quizAttemptsRef,
+            where('userId', '==', userId),
+            orderBy('timestamp', 'desc')
+        );
         
-        return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const querySnapshot = await getDocs(q);
+        
+        return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     } catch (error) {
         console.error("Error fetching quiz attempts: ", error);
         return [];

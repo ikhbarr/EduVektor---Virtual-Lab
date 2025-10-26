@@ -1,8 +1,6 @@
 // src/pages/SimulasiPage.jsx
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { db } from '../firebase';
-import firebase from '../firebase';
 import useVectorCanvas from '../hooks/useVectorCanvas';
 import useVectorInteraction from '../hooks/useVectorInteraction';
 import useVectorHistory from '../hooks/useVectorHistory';
