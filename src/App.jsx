@@ -13,11 +13,13 @@ import ProyektorPage from './pages/ProyektorPage';
 
 import PaletRGBPage from './pages/PaletRGBPage';
 import DashboardPage from './pages/DashboardPage';
+import AuthPage from './pages/AuthPage';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<AuthPage />} />
       <Route element={<ProtectedRoute />}>
         <Route element={<Layout />}>
           <Route path="/home" element={<HomePage />} />

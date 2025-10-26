@@ -184,9 +184,9 @@ const Navbar = () => {
             />
           </div>
         ) : (
-          <button onClick={handleLogin} className={styles.loginButtonNav}>
+          <NavLink to="/login" className={styles.loginButtonNav}>
             Login
-          </button>
+          </NavLink>
         )}
       </div>
     </nav>

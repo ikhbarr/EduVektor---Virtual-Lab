@@ -13,7 +13,7 @@ const GrafikProgres = ({ attempts }) => {
     })).reverse();
 
     return (
-        <div className={styles.grafikProgres}>
+        <div className={styles.grafikProgres} style={{ height: '300px' }}>
             <h3>Grafik Tren Skor</h3>
             <ResponsiveContainer width="100%" height="100%" minHeight={0}>
                 <LineChart data={data}>

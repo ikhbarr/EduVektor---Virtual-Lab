@@ -1,7 +1,7 @@
 :root {
-    --primary-color: #005fdb; /* Blueprint blue */
+    --primary-color: #005fdb; 
     --primary-color-dark: #004aaa;
-    --secondary-color: #f8f9fa; /* Off-white background */
+    --secondary-color: #f8f9fa; 
     --accent-color: #10b981;
     --border-color: #dee2e6;
     --font-color: #212529;
@@ -12,7 +12,7 @@ body {
     font-family: 'Roboto Mono', monospace;
     margin: 0;
     background-color: var(--secondary-color);
-    /* Add blueprint grid background */
+    
     background-image: 
         linear-gradient(rgba(0, 95, 219, 0.1) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 95, 219, 0.1) 1px, transparent 1px);
@@ -69,4 +69,15 @@ h2 { font-size: 1.8rem; }
   h2 {
     font-size: 1.5rem;
   }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
