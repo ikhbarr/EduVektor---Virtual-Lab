@@ -1,27 +1,43 @@
 // src/pages/MateriPage.jsx
 import React from 'react';
+import { Tabs, Tab } from '../components/Tabs';
+import DasarDasar from '../materi/dasar-dasar.mdx';
+import AIvect from '../materi/vector-AI.mdx';
+import Mathvect from '../materi/vector-matematika.mdx';
+import Phsyvect from '../materi/vector-fisika.mdx';
+import styles from './MateriPage.module.css';
 
 const MateriPage = () => {
   return (
     <>
-      <div className="content-section">
-        <h1>Dasar-Dasar Vektor</h1>
-        <h2>Apa itu Vektor?</h2>
-        <p>Vektor adalah objek geometri yang memiliki <strong>magnitudo (nilai/panjang)</strong> dan <strong>arah</strong>. Vektor sering digambarkan sebagai panah. Panjang panah menunjukkan magnitudo, dan arah panah menunjukkan arahnya.</p>
-        
-        <h2>Penjumlahan Vektor</h2>
-        <p>Penjumlahan dua vektor (misalnya <strong>A</strong> + <strong>B</strong>) menghasilkan vektor baru yang disebut <strong>vektor resultan (R)</strong>. Secara matematis, jika <strong>A</strong> = (Ax, Ay) dan <strong>B</strong> = (Bx, By), maka resultannya <strong>R</strong> = (Ax + Bx, Ay + By).</p>
+      <Tabs>
+        <Tab label="Dasar-Dasar">
+          <div className="content-section">
+            <DasarDasar />
+          </div>
+        </Tab>
+        <Tab label="Aplikasi di AI">
+          <div className="content-section">
+            <AIvect />
+          </div>
+        </Tab>
+        <Tab label="Aplikasi di Fisika">
+          <div className="content-section">
+            <Phsyvect />
+          </div>
+        </Tab>
+        <Tab label="Aplikasi di Matematika">
+          <div className="content-section">
+            <Mathvect />
+          </div>
+        </Tab>
+      </Tabs>
 
-        <h2>Magnitudo Vektor</h2>
-        <p>Magnitudo atau panjang dari sebuah vektor <strong>A</strong> = (Ax, Ay) dihitung menggunakan teorema Pythagoras: |A| = √(Ax² + Ay²)</p>
-        <p>Cobalah konsep-konsep ini di halaman <strong>Simulasi</strong>!</p>
-      </div>
-
-      <div className="video-section">
+      <div className={styles.videoSection}>
         <h2>Materi Video</h2>
         <p>Tonton video berikut untuk pemahaman yang lebih mendalam:</p>
         
-        <h4>1. Konsep Dasar Vektor (Kelas 10)</h4>
+        {/* <h4>1. Konsep Dasar Vektor (Kelas 10)</h4>
         <div className="video-container">
           <iframe 
             src="https://www.youtube.com/embed/kLHRRj2COPE" 
@@ -29,10 +45,10 @@ const MateriPage = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
             allowFullScreen>
           </iframe>
-        </div>
+        </div> */}
 
-        <h4>2. Penjumlahan Vektor (Metode Poligon & Jajar Genjang)</h4>
-        <div className="video-container">
+        <h4>1. Penjumlahan Vektor (Metode Poligon & Jajar Genjang)</h4>
+        <div className={styles.videoContainer}>
           <iframe 
             src="https://www.youtube.com/embed/OJrffDuVXjM" 
             title="YouTube video player" 

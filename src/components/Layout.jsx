@@ -1,14 +1,19 @@
 // src/components/Layout.jsx
 import React from 'react';
 import Navbar from './Navbar';
+import { Outlet } from 'react-router-dom';
+import VectorFieldCanvas from './VectorFieldCanvas';
+import ScrollToTopButton from './ScrollToTopButton';
 
-const Layout = ({ children }) => {
+const Layout = () => {
   return (
     <>
+      <VectorFieldCanvas />
       <Navbar />
-      <div className="page-container">
-        {children}
-      </div>
+      <main className="page-container">
+        <Outlet />
+      </main>
+      <ScrollToTopButton />
     </>
   );
 };

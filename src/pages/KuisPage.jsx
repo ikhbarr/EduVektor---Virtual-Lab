@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase';
-import firebase from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import styles from './KuisPage.module.css';
 
 const questionBank = [
     { question: "Jika Vektor A = (3, 4), berapakah magnitudo dari Vektor A?", options: ["5", "7", "1", "12"], answer: "5" },
@@ -25,30 +26,49 @@ const KuisPage = () => {
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState({});
     const [score, setScore] = useState(null);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    const startQuiz = () => {
+        setQuestions(getShuffledQuestions(questionBank, 5));
+        setAnswers({});
+        setScore(null);
+        setIsSubmitted(false);
+    };
 
     useEffect(() => {
-        setQuestions(getShuffledQuestions(questionBank, 5));
+        startQuiz();
     }, []);
 
     const handleAnswerChange = (qIndex, option) => {
+        if (isSubmitted) return; // Prevent changes after submission
         setAnswers(prev => ({ ...prev, [qIndex]: option }));
     };
 
     const handleSubmit = async () => {
-        let currentScore = 0;
+        let correctAnswers = 0;
         questions.forEach((q, index) => {
             if (answers[index] === q.answer) {
-                currentScore++;
+                correctAnswers++;
             }
         });
-        setScore(currentScore);
+        
+        const finalScore = (correctAnswers / questions.length) * 100;
+        setScore(correctAnswers);
+        setIsSubmitted(true);
 
         if (currentUser) {
-            await db.collection('quizScores').doc(currentUser.uid).collection('attempts').add({
-                score: currentScore,
-                totalQuestions: questions.length,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp()
-            });
+            try {
+                await addDoc(collection(db, 'quiz_attempts'), {
+                    userId: currentUser.uid,
+                    quizId: 'vektor_dasar_1',
+                    score: finalScore,
+                    correctAnswers: correctAnswers,
+                    totalQuestions: questions.length,
+                    timestamp: serverTimestamp()
+                });
+            } catch (error) {
+                console.error("Error saving quiz attempt: ", error);
+            }
         }
     };
 
@@ -57,37 +77,57 @@ const KuisPage = () => {
     }
 
     return (
-        <div>
+        <div className="kuis-container">
             <h1>Kuis Pemahaman Vektor</h1>
+            
+            {isSubmitted && (
+                <div className={styles.quizResultsSummary}>
+                    <h2>Hasil Kuis</h2>
+                    <p>Skor Anda: <strong>{score}</strong> dari <strong>{questions.length}</strong></p>
+                    <button onClick={startQuiz}>Coba Lagi</button>
+                </div>
+            )}
+
             {questions.length > 0 ? (
                  <div id="quiz-form">
-                    {questions.map((q, index) => (
-                        <div key={index} className="question">
-                            <p><strong>{index + 1}. {q.question}</strong></p>
-                            <div className="options">
-                                {q.options.map(option => (
-                                    <label key={option}>
-                                        <input
-                                            type="radio"
-                                            name={`question${index}`}
-                                            value={option}
-                                            checked={answers[index] === option}
-                                            onChange={() => handleAnswerChange(index, option)}
-                                        />
-                                        {option}
-                                    </label>
-                                ))}
+                    {questions.map((q, index) => {
+                        const isCorrect = q.answer === answers[index];
+                        return (
+                            <div key={index} className="question">
+                                <p><strong>{index + 1}. {q.question}</strong></p>
+                                <div className={styles.options}>
+                                    {q.options.map(option => {
+                                        const isSelected = answers[index] === option;
+                                        let labelClass = '';
+                                        if (isSubmitted) {
+                                            if (option === q.answer) labelClass = styles.correct;
+                                            else if (isSelected) labelClass = styles.incorrect;
+                                        }
+                                        return (
+                                            <label key={option} className={`${labelClass} ${isSelected ? styles.selected : ''}`}>
+                                                <input
+                                                    type="radio"
+                                                    name={`question${index}`}
+                                                    value={option}
+                                                    checked={isSelected}
+                                                    disabled={isSubmitted}
+                                                    onChange={() => handleAnswerChange(index, option)}
+                                                />
+                                                {option}
+                                            </label>
+                                        );
+                                    })}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             ) : <p>Memuat soal...</p>}
            
-            <button id="submit-quiz" onClick={handleSubmit}>Kumpulkan Jawaban</button>
-            {score !== null && (
-                <div id="quiz-results">
-                    Skor Anda: {score} dari {questions.length}
-                </div>
+            {!isSubmitted && (
+                <button className={styles.submitQuiz} onClick={handleSubmit} disabled={Object.keys(answers).length !== questions.length}>
+                    Kumpulkan Jawaban
+                </button>
             )}
         </div>
     );

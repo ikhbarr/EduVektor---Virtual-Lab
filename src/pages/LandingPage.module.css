@@ -1,0 +1,59 @@
+.landingPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    position: relative;
+    overflow: hidden; 
+}
+
+@keyframes contentFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.landingContent {
+    max-width: 600px;
+    padding: 40px;
+    background-color: var(--card-bg);
+    border-radius: 2px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+    position: relative; 
+    z-index: 1;
+    animation: contentFadeIn 1s ease-out forwards;
+}
+
+.landingContent h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color-dark);
+}
+
+.landingContent p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.loginButton {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background-image: linear-gradient(to right, #3b82f6, #60a5fa);
+    border: none;
+    color: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.loginButton:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4), 0 0 25px rgba(96, 165, 250, 0.5);
+}
