@@ -23,7 +23,7 @@ Proyek ini dibangun dengan serangkaian fitur yang berfokus pada pengalaman belaj
   * **Routing:** **React Router v6**
   * **Backend & Database:** **Firebase**
       * Firebase Authentication
-      * Firestore (sebagai database NoSQL)
+      * Firestore
   * **Styling:** **CSS Modules** & CSS Global
   * **Konten & Matematika:**
       * **MDX (Markdown with JSX)**
